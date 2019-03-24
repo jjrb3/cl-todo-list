@@ -2,14 +2,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
+const User = require('../../models/user');
 
-const { verifyToken } = require('../middlewares/authentication');
+const { verifyToken } = require('../../middlewares/authentication');
 
 const app = express();
 
 
-app.get('/user', verifyToken, (req, res) => {
+app.get('/api/user', verifyToken, (req, res) => {
 
     let from = (req.query.from || 0),
         limit = req.query.limit || 5;
@@ -39,7 +39,7 @@ app.get('/user', verifyToken, (req, res) => {
 });
 
 
-app.post('/user', (req, res) => {
+app.post('/api/user', (req, res) => {
 
     let body = req.body;
 
@@ -67,7 +67,7 @@ app.post('/user', (req, res) => {
 });
 
 
-app.put('/user/:id', verifyToken, (req, res) => {
+app.put('/api/user/:id', verifyToken, (req, res) => {
 
     let id = req.params.id;
     let body = req.body;
@@ -89,7 +89,7 @@ app.put('/user/:id', verifyToken, (req, res) => {
 });
 
 
-app.delete('/user/:id', verifyToken, (req, res) => {
+app.delete('/api/user/:id', verifyToken, (req, res) => {
 
     let id = req.params.id;
 
