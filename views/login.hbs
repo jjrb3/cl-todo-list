@@ -12,7 +12,11 @@
     </form>
 </div>
 
-<script src="assets/js/app/api.js"></script>
+{{> scripts }}
+
 <script src="assets/js/app/login.js"></script>
+<script>
+    Api.ifIsLogin();
+</script>
 
 {{> footer }}

@@ -1,5 +1,19 @@
 {{> head }}
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Welcome <span id="user-name"></span>!</a>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Api.logout()">Logout</button>
+        </form>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -53,6 +67,12 @@
     </div>
 </div>
 
-<script src="assets/js/to-do.js"></script>
+{{> scripts }}
+
+<script src="assets/js/app/to-do.js"></script>
+<script>
+    Api.securityLogin();
+    Api.loadData();
+</script>
 
 {{> footer }}

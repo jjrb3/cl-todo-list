@@ -8,8 +8,6 @@ Api.Login = {
 
         if (params) {
 
-
-
             $.ajax({
                 url: this.uri,
                 type: 'post',
@@ -25,7 +23,7 @@ Api.Login = {
 
                     if (json.success) {
                         localStorage.setItem("auth", json.token);
-
+                        localStorage.setItem("name", json.user.name);
                         location.assign(`${ Api.server}/home`)
                     }
                 },
