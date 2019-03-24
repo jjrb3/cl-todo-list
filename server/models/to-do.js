@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 
-let userSchema = new Schema({
+let todoSchema = new Schema({
     description: {
         type: String,
-        unique: true,
         required: [true, 'The description is necessary']
     },
     user: {
-        type: Schema.Types.ObjectId, ref: 'user'
+        type: Schema.Types.ObjectId, ref: 'user',
+        required: false
     },
     status: {
         type: Schema.Types.ObjectId, ref: 'status'
@@ -18,4 +18,4 @@ let userSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('todo', userSchema);
+module.exports = mongoose.model('todo', todoSchema);

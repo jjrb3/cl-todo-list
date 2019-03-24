@@ -1,6 +1,6 @@
 
 Api.Todo = {
-    uriLoadData: `${ Api.apiServer}/load-data-form`,
+    uri: `${ Api.apiServer}/to-do`,
 
     loadData: function() {
 
@@ -8,13 +8,63 @@ Api.Todo = {
         Api.Status.loadDataSelect('select-status');
     },
 
-    addTodo: function() {
-        let description = $('#description-to-do').val();
 
-        if (description) {
-            console.log('Added');
+    addTodo: function() {
+
+        let params = this.verifyForm();
+
+        if (params) {
+
+            $.ajax({
+                url: this.uri,
+                type: 'post',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': localStorage.getItem('auth')
+                },
+                dataType: 'json',
+                beforeSend: function(){
+                    $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
+                },
+                success: function (json) {
+
+                    if (json.success) {
+                        localStorage.setItem("auth", json.token);
+                        localStorage.setItem("name", json.user.name);
+                        location.assign(`${ Api.server}/home`)
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    Api.Tools.publicMessage('danger', 'message',XMLHttpRequest.responseJSON.err.message);
+                }
+            });
         }
-    }
+    },
+
+
+    verifyForm: function() {
+
+        let description = $('#description-to-do').val().trim(),
+            user = $('#select-users').val().trim(),
+            status = $('#select-status').val();
+
+        if (!description) {
+            Api.Tools.publicMessage('warning', 'message','Description is required');
+            return false;
+        }
+
+        if (!status) {
+            Api.Tools.publicMessage('warning', 'message','Status is required');
+            return false;
+        }
+
+        return {
+            description: description,
+            status: status,
+            user: user
+        };
+    },
 };
 
 //mark task as done
