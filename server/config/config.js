@@ -30,7 +30,7 @@ process.env.SEED =  process.env.SEED || 'este-es-el-seed';
 // ========================
 //  Base de datos
 // ========================
-let urlDB = process.env.NODE_ENV === 'dev' ? 'mongodb://localhost:27017/cafe' : 'mongodb://cafe-user:JJrb333@ds127190.mlab.com:27190/cafe';
+let urlDB = process.env.NODE_ENV === 'dev' ? 'mongodb://localhost:27017/todo' : 'mongodb://cafe-user:JJrb333@ds127190.mlab.com:27190/cafe';
 
 process.env.URLDB = urlDB;
 
