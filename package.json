@@ -1,0 +1,24 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Condors Labs test",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon server/server.js",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjrb3/cl-todo-list.git"
+  },
+  "author": "Jeremy Reyes B.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjrb3/cl-todo-list/issues"
+  },
+  "homepage": "https://github.com/jjrb3/cl-todo-list#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
