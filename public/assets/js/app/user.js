@@ -14,7 +14,7 @@ Api.User = {
             },
             dataType: 'json',
             beforeSend: function(){
-                console.log('Loading')
+                $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
             },
             success: function (json) {
 
@@ -42,6 +42,8 @@ Api.User = {
 
                     Api.User.userList = json.user
                 }
+
+                $('#message').html('');
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest.responseJSON.err.message)

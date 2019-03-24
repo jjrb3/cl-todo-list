@@ -17,7 +17,7 @@ Api.Login = {
                 },
                 dataType: 'json',
                 beforeSend: function(){
-                    console.log('Loading')
+                    $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
                 },
                 success: function (json) {
 
