@@ -1,14 +1,18 @@
 {{> head }}
 
-{{> navbar }}
-
-<div class="jumbotron">
-    <h1 class="display-4">Hello!</h1>
-<p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-featured content or information.</p>
-<hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<div class="wrapper">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please login</h2>
+        <input type="text" class="form-control" id="email" placeholder="Email Address" required="" autofocus="" />
+        <input type="password" class="form-control" id="password" placeholder="Password" required=""/>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="Api.Login.login()">Login</button>
+        <br>
+        <div id="message"></div>
+    </form>
 </div>
+
+<script src="assets/js/app/api.js"></script>
+<script src="assets/js/app/login.js"></script>
 
 {{> footer }}
