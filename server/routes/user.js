@@ -4,19 +4,19 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 
-//const { verificaToken } = require('../middlewares/autenticacion');
+const { verifyToken } = require('../middlewares/authentication');
 
 const app = express();
 
 
-app.get('/user', (req, res) => {
+app.get('/user', verifyToken, (req, res) => {
 
-    let desde = (req.query.desde || 0),
-        limit = req.query.limite || 5;
+    let from = (req.query.from || 0),
+        limit = req.query.limit || 5;
 
 
     User.find({ status: true }, 'name email status')
-        .skip(Number(desde))
+        .skip(Number(from))
         .limit(Number(limit))
         .exec((err, user) => {
 
@@ -39,16 +39,9 @@ app.get('/user', (req, res) => {
 });
 
 
-app.post('/user', /*[verificaToken],*/ (req, res) => {
+app.post('/user', (req, res) => {
 
     let body = req.body;
-
-    if (body.password === undefined) {
-        return res.status(400).json({
-            success: false,
-            message: 'The password is required'
-        });
-    }
 
     let user = new User({
         name: body.name,
@@ -74,7 +67,7 @@ app.post('/user', /*[verificaToken],*/ (req, res) => {
 });
 
 
-app.put('/user/:id', (req, res) => {
+app.put('/user/:id', verifyToken, (req, res) => {
 
     let id = req.params.id;
     let body = req.body;
@@ -96,7 +89,7 @@ app.put('/user/:id', (req, res) => {
 });
 
 
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/:id', verifyToken, (req, res) => {
 
     let id = req.params.id;
 
