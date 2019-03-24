@@ -26,7 +26,7 @@ app.get('/api/status', verifyToken, (req, res) => {
                 return res.json({
                     success: true,
                     quantity: count,
-                    result
+                    status: result
                 });
             });
         });

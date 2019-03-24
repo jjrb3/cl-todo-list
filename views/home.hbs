@@ -16,16 +16,21 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="todolist not-done">
                 <h1>To-Do's</h1>
                 <div class="row">
                     <div class="col-md-6">
-                        <input id="description-to-do" type="text" class="form-control" placeholder="Add todo">
+                        <input id="description-to-do" type="text" class="form-control" placeholder="Add to-do...">
                     </div>
-                    <div class="col-md-6">
-                        <select class="form-control">
+                    <div class="col-md-4">
+                        <select id="select-users" class="form-control">
                             <option value="">Select an user...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="select-status" class="form-control select-status">
+                            <option value="">Select status...</option>
                         </select>
                     </div>
                 </div>
@@ -40,11 +45,7 @@
                     <li class="ui-state-default">
                         <row class="row">
                             <div class="col-md-3">
-                                <select>
-                                    <option>Open</option>
-                                    <option>In-Progress</option>
-                                    <option>Completed</option>
-                                    <option>Archived</option>
+                                <select class="select-status">
                                 </select>
                             </div>
                             <div class="col-md-9">
@@ -59,19 +60,6 @@
                         Teach penguins to fly
                     </li>
                 </ul>
-                <div class="todo-footer">
-                    <strong><span class="count-todos"></span></strong> Items Left
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="todolist">
-                <h1>Already Complete</h1>
-                <ul id="done-items" class="list-unstyled">
-                    <li>Some item <button class="remove-item btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></li>
-
-                </ul>
             </div>
         </div>
     </div>
@@ -80,6 +68,8 @@
 {{> scripts }}
 
 <script src="assets/js/app/to-do.js"></script>
+<script src="assets/js/app/user.js"></script>
+<script src="assets/js/app/status.js"></script>
 <script>
     Api.securityLogin();
     Api.Todo.loadData();
