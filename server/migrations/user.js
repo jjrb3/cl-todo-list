@@ -3,7 +3,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
 
-let deleteUser = () => {
+let migrationUser = () => {
     User.remove({}, (err) => {
         if (err) {
             console.log('Error deleting users');
@@ -51,5 +51,5 @@ let seed = (transactions) => {
 
 
 module.exports = {
-    deleteUser
+    migrationUser
 };

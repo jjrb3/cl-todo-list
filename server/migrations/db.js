@@ -1,18 +1,18 @@
 
 require('../config/config');
 
-const mongoose = require('mongoose');
+const mongoose= require('mongoose');
 
 
-const {
-     deleteUser
-} = require('./user');
+const { migrationUser } = require('./user');
+const { migrationStatus } = require('./status');
 
 
 mongoose.connect(process.env.URLDB, (err) => {
 
     if (err) throw error;
 
-    deleteUser();
+    migrationUser();
+    migrationStatus();
 });
 

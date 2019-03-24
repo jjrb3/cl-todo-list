@@ -19,7 +19,17 @@
         <div class="col-md-6">
             <div class="todolist not-done">
                 <h1>To-Do's</h1>
-                <input id="description-to-do" type="text" class="form-control" placeholder="Add todo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="description-to-do" type="text" class="form-control" placeholder="Add todo">
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control">
+                            <option value="">Select an user...</option>
+                        </select>
+                    </div>
+                </div>
+
                 <br>
                 <button class="btn btn-success" onclick="Todo.addTodo()">Add Todo</button>
 
@@ -72,6 +82,7 @@
 <script src="assets/js/app/to-do.js"></script>
 <script>
     Api.securityLogin();
+    Api.Todo.loadData();
     Api.loadData();
 </script>
 

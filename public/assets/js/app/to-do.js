@@ -1,5 +1,32 @@
 
-let Todo = {
+Api.Todo = {
+    uriLoadData: `${ Api.apiServer}/load-data-form`,
+
+    loadData: function() {
+        $.ajax({
+            url: this.uri,
+            type: 'post',
+            data: params,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                console.log('Loading')
+            },
+            success: function (json) {
+
+                if (json.success) {
+                    localStorage.setItem("auth", json.token);
+                    localStorage.setItem("name", json.user.name);
+                    location.assign(`${ Api.server}/home`)
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                Api.Tools.publicMessage('danger', 'message',XMLHttpRequest.responseJSON.err.message);
+            }
+        });
+    },
 
     addTodo: function() {
         let description = $('#description-to-do').val();
