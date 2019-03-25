@@ -10,7 +10,7 @@ const app = express();
 
 app.get('/api/to-do', verifyToken, (req, res) => {
 
-    Todo.find({ description: new RegExp(req.query.description) })
+    Todo.find({ description: new RegExp(req.query.description, 'i') })
         .sort({ _id: -1 })
         .populate('user')
         .populate('status')
