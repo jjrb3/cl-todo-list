@@ -48,7 +48,7 @@ Api.Todo = {
                         var data = `'${ json.todo[i]._id }', '${ json.todo[i].description }', '${ json.todo[i].status._id }',`;
                         data += `'${ json.todo[i].user === undefined ? '' : json.todo[i].user._id }'`;
 
-                        selectUser += `<select class="form-control" onchange="Api.Todo.Update(${ data }, this.value, 'user')">`;
+                        selectUser += `<select class="form-control" onchange="Api.Todo.update(${ data }, this.value, 'user')">`;
 
                         selectUser += `<option value="">Select an user...</option>`;
 
@@ -69,7 +69,7 @@ Api.Todo = {
                         tr += `<td width="30%">${ selectUser }</td>`;
 
                         // Select Status
-                        selectStatus += `<select class="form-control" onchange="Api.Todo.Update(${ data }, this.value, 'status')">`;
+                        selectStatus += `<select class="form-control" onchange="Api.Todo.update(${ data }, this.value, 'status')">`;
 
                         for (let j in Api.Status.statusList) {
 
@@ -86,7 +86,7 @@ Api.Todo = {
                         selectStatus += '</select>';
 
                         tr += `<td width="30%">${ selectStatus }</td>`;
-                        tr += `<td width="5%"><button class="btn btn-danger" onclick="Api.Todo.Delete('${ json.todo[i]._id }')">Delete</button></td>`;
+                        tr += `<td width="5%"><button class="btn btn-danger" onclick="Api.Todo.delete('${ json.todo[i]._id }')">Delete</button></td>`;
 
 
                         tr += '<tr>';
@@ -165,35 +165,73 @@ Api.Todo = {
             user: user
         };
     },
-};
 
-//mark task as done
-function done(doneItem){
-    var done = doneItem;
-    var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
-    $('#done-items').append(markup);
-    $('.remove').remove();
-}
 
-//mark all tasks as done
-function AllDone(){
-    var myArray = [];
+    update: function(id, description, status, user, value, type) {
 
-    $('#sortable li').each( function() {
-        myArray.push($(this).text());
-    });
+        let params = {
+            description: description,
+            status: status
+        };
 
-    // add to done
-    for (i = 0; i < myArray.length; i++) {
-        $('#done-items').append('<li>' + myArray[i] + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>');
+        if (user !== '') {
+            params['user'] = user;
+        }
+
+        params[type] = value;
+
+        $.ajax({
+            url: `${ this.uri }/${ id }`,
+            type: 'put',
+            data: params,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': localStorage.getItem('auth')
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
+            },
+            success: function (json) {
+
+                if (json.success) {
+
+                    Api.Todo.loadData();
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                Api.Tools.publicMessage('danger', 'message',XMLHttpRequest.responseJSON.err.message);
+            }
+        });
+    },
+
+
+    delete: function(id) {
+
+        if (confirm("you're sure you want to eliminate this To-Do?")) {
+
+            $.ajax({
+                url: `${this.uri}/${id}`,
+                type: 'delete',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': localStorage.getItem('auth')
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
+                },
+                success: function (json) {
+
+                    if (json.success) {
+
+                        Api.Todo.loadData();
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    Api.Tools.publicMessage('danger', 'message', XMLHttpRequest.responseJSON.err.message);
+                }
+            });
+        }
     }
-
-    // myArray
-    $('#sortable li').remove();
-    countTodos();
-}
-
-//remove done task from list
-function removeItem(element){
-    $(element).parent().remove();
-}
+};
