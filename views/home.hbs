@@ -42,25 +42,26 @@
                 <hr>
                 <input type="text" class="form-control" placeholder="Search To-Do...">
                 <br>
-                <ul id="sortable" class="list-unstyled">
-                    <li class="ui-state-default">
-                        <row class="row">
-                            <div class="col-md-3">
-                                <select class="select-status">
-                                </select>
-                            </div>
-                            <div class="col-md-9">
-                                Take out the trash
-                            </div>
-                        </row>
-                    </li>
-                    <li class="ui-state-default">
-                        Buy bread
-                    </li>
-                    <li class="ui-state-default">
-                        Teach penguins to fly
-                    </li>
-                </ul>
+                <table class="table table-striped table-bordered" id="table-to-do">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>User</th>
+                        <th>Status</th>
+                        <th>Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td width="20%">Doe</td>
+                        <td width="20%">john@example.com</td>
+                        <td align="center" width="5%">
+                            <button class="btn btn-danger" onclick="">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

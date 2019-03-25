@@ -28,7 +28,71 @@ Api.Todo = {
 
                 if (json.success) {
 
-                    console.log(json);
+                    let tbody = $('#table-to-do').find('tbody');
+
+                    tbody.html('');
+
+                    for (let i in json.todo) {
+
+                        var tr = '',
+                            selectUser = '',
+                            selectStatus = '',
+                            checkoutUser = '',
+                            checkoutStatus = 'false';
+
+                        tr += '<tr>';
+                        tr += `<td>${ json.todo[i].description }</td>`;
+
+
+                        // Select User
+                        var data = `'${ json.todo[i]._id }', '${ json.todo[i].description }', '${ json.todo[i].status._id }',`;
+                        data += `'${ json.todo[i].user === undefined ? '' : json.todo[i].user._id }'`;
+
+                        selectUser += `<select class="form-control" onchange="Api.Todo.Update(${ data }, this.value, 'user')">`;
+
+                        selectUser += `<option value="">Select an user...</option>`;
+
+                        for (let j in Api.User.userList) {
+
+                            if (!(json.todo[i].user === undefined) && Api.User.userList[j]._id === json.todo[i].user._id) {
+                                checkoutUser = 'selected';
+                            }
+                            else {
+                                checkoutUser = '';
+                            }
+
+                            selectUser += `<option ${ checkoutUser } value="${ Api.User.userList[j]._id }">${ Api.User.userList[j].name }</option>`;
+                        }
+
+                        selectUser += '</select>';
+
+                        tr += `<td width="30%">${ selectUser }</td>`;
+
+                        // Select Status
+                        selectStatus += `<select class="form-control" onchange="Api.Todo.Update(${ data }, this.value, 'status')">`;
+
+                        for (let j in Api.Status.statusList) {
+
+                            if (Api.Status.statusList[j]._id === json.todo[i].status._id) {
+                                checkoutUser = 'selected';
+                            }
+                            else {
+                                checkoutUser = '';
+                            }
+
+                            selectStatus += `<option ${ checkoutUser } value="${ Api.Status.statusList[j]._id }">${ Api.Status.statusList[j].name }</option>`;
+                        }
+
+                        selectStatus += '</select>';
+
+                        tr += `<td width="30%">${ selectStatus }</td>`;
+                        tr += `<td width="5%"><button class="btn btn-danger" onclick="Api.Todo.Delete('${ json.todo[i]._id }')">Delete</button></td>`;
+
+
+                        tr += '<tr>';
+
+                        tbody.append(tr);
+                    }
                 }
 
                 $('#message').html('');

@@ -11,6 +11,7 @@ const app = express();
 app.get('/api/to-do', verifyToken, (req, res) => {
 
     Todo.find({ description: new RegExp(req.body.description) })
+        .sort({ _id: -1 })
         .populate('user')
         .populate('status')
         .exec((err, data) => {
