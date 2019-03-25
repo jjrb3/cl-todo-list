@@ -16,3 +16,17 @@ User: test@condors.co
 Pass: C0nd0rs
 
 ```
+
+# Used libraries
+
+```
+npm: 6.7.0
+------------------------------------
+bcrypt: ^3.0.5,
+body-parser: ^1.18.3,
+express: ^4.16.4,
+hbs: ^4.0.1,
+jsonwebtoken: ^8.5.1,
+mongoose: ^5.4.19,
+mongooseunique-validator": ^2.0.2
+```
