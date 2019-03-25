@@ -6,6 +6,7 @@ const mongoose= require('mongoose');
 
 const { migrationUser } = require('./user');
 const { migrationStatus } = require('./status');
+const { migrationTodo } = require('./to-do');
 
 
 mongoose.connect(process.env.URLDB, (err) => {
@@ -14,5 +15,6 @@ mongoose.connect(process.env.URLDB, (err) => {
 
     migrationUser();
     migrationStatus();
+    migrationTodo();
 });
 
