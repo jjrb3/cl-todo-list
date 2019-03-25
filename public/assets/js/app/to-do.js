@@ -7,15 +7,15 @@ Api.Todo = {
         Api.User.loadDataSelect('select-users');
         Api.Status.loadDataSelect('select-status');
 
-        this.showTable();
+        this.showTable('');
     },
 
-    showTable: function() {
+    showTable: function(description) {
 
         $.ajax({
             url: this.uri,
             type: 'get',
-            data: {},
+            data: {description: description},
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': localStorage.getItem('auth')
@@ -38,7 +38,7 @@ Api.Todo = {
                             selectUser = '',
                             selectStatus = '',
                             checkoutUser = '',
-                            checkoutStatus = 'false';
+                            checkoutStatus = '';
 
                         tr += '<tr>';
                         tr += `<td>${ json.todo[i].description }</td>`;
@@ -74,13 +74,13 @@ Api.Todo = {
                         for (let j in Api.Status.statusList) {
 
                             if (Api.Status.statusList[j]._id === json.todo[i].status._id) {
-                                checkoutUser = 'selected';
+                                checkoutStatus = 'selected';
                             }
                             else {
-                                checkoutUser = '';
+                                checkoutStatus = '';
                             }
 
-                            selectStatus += `<option ${ checkoutUser } value="${ Api.Status.statusList[j]._id }">${ Api.Status.statusList[j].name }</option>`;
+                            selectStatus += `<option ${ checkoutStatus } value="${ Api.Status.statusList[j]._id }">${ Api.Status.statusList[j].name }</option>`;
                         }
 
                         selectStatus += '</select>';
