@@ -9,7 +9,7 @@ Project execution:
 	5. npm start
 	6. Open http://localhost:3000
 
-Credentials:
+# Access credentials:
 
 ```
 User: test@condors.co
