@@ -34,3 +34,5 @@ mongooseunique-validator": ^2.0.2
 # Database
 
 For this project use MongoDB as a database NoSQL.
+
+Default port: 27017
