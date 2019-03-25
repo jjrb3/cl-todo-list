@@ -30,3 +30,7 @@ jsonwebtoken: ^8.5.1,
 mongoose: ^5.4.19,
 mongooseunique-validator": ^2.0.2
 ```
+
+# Database
+
+For this project use MongoDB as a database NoSQL.
