@@ -6,6 +6,37 @@ Api.Todo = {
 
         Api.User.loadDataSelect('select-users');
         Api.Status.loadDataSelect('select-status');
+
+        this.showTable();
+    },
+
+    showTable: function() {
+
+        $.ajax({
+            url: this.uri,
+            type: 'get',
+            data: {},
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': localStorage.getItem('auth')
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                $('#message').html('<img src="assets/img/loading.gif" width="50" height="50">');
+            },
+            success: function (json) {
+
+                if (json.success) {
+
+                    console.log(json);
+                }
+
+                $('#message').html('');
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.responseJSON.err.message)
+            }
+        });
     },
 
 
@@ -30,9 +61,14 @@ Api.Todo = {
                 success: function (json) {
 
                     if (json.success) {
-                        localStorage.setItem("auth", json.token);
-                        localStorage.setItem("name", json.user.name);
-                        location.assign(`${ Api.server}/home`)
+
+                        $('#description-to-do').val('');
+
+                        Api.Tools.publicMessage('success', 'message', 'The information was saved correctly');
+
+                        setTimeout(function() {
+                            Api.Todo.loadData();
+                        }, 1000);
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
